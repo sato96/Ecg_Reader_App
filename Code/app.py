@@ -126,7 +126,7 @@ class MyMainWindow(QMainWindow):
             plt.show()
         else:
             self.popUpMsg('Non è stato selezionato alcun file',title='File vuoto', type='WARNING')
-        #filePath = self.popUpMsg(file[0])
+
 
     def realod(self):
         conf = Config.getConfiguration(self.configFile)
