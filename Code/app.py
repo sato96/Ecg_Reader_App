@@ -118,12 +118,14 @@ class MyMainWindow(QMainWindow):
     def onOpenFile(self):
         file = QFileDialog.getOpenFileName(caption='Scegli un ecg', directory='/', filter="Fogli elettronici (*.csv)")
         print(file)
-
-        ecg = Signal(filePath=file[0])
-        ecg.getSignal(unsafe=True)
-        ecgFiltered = ecg.rmvMean()
-        plt.plot(ecgFiltered)
-        plt.show()
+        if file[0] != '':
+            ecg = Signal(filePath=file[0])
+            ecg.getSignal(unsafe=True)
+            ecgFiltered = ecg.rmvMean()
+            plt.plot(ecgFiltered)
+            plt.show()
+        else:
+            self.popUpMsg('Non è stato selezionato alcun file',title='File vuoto', type='WARNING')
         #filePath = self.popUpMsg(file[0])
 
     def realod(self):
