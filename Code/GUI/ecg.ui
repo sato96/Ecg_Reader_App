@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>872</width>
+    <height>536</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Elettrocardiografo</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>Resources/ecg.png</normaloff>Resources/ecg.png</iconset>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QGraphicsView" name="graphicsView"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetFixedSize</enum>
+        </property>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>Inizia ECG</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>Finisci ECG</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="save">
+        <property name="toolTipDuration">
+         <number>-1</number>
+        </property>
+        <property name="text">
+         <string>Salva</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>Resources/save.png</normaloff>Resources/save.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>872</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionCarica_ECG"/>
+   </widget>
+   <widget class="QMenu" name="menuImpostazioni">
+    <property name="title">
+     <string>Impostazioni</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionImposta_indirizzo_dispositivo"/>
+    <addaction name="separator"/>
+    <addaction name="actionFrequenza_di_aggiornamento_grafico"/>
+    <addaction name="separator"/>
+    <addaction name="actionCartella_di_salvataggio"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuInfo_software">
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Info software</string>
+    </property>
+    <addaction name="actionInfo"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuImpostazioni"/>
+   <addaction name="menuInfo_software"/>
+  </widget>
+  <action name="actionCarica_ECG">
+   <property name="text">
+    <string>Carica ECG</string>
+   </property>
+  </action>
+  <action name="actionImposta_indirizzo_dispositivo">
+   <property name="text">
+    <string>Indirizzo dispositivo</string>
+   </property>
+  </action>
+  <action name="actionFrequenza_di_aggiornamento_grafico">
+   <property name="text">
+    <string>Frequenza di aggiornamento grafico</string>
+   </property>
+  </action>
+  <action name="actionCartella_di_salvataggio">
+   <property name="text">
+    <string>Cartella di salvataggio</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="text">
+    <string>Info</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
