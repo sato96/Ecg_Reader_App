@@ -1,6 +1,6 @@
 ECG reader App.
 
-It gets data from *link project here* opening a websocket e plotting ecg in real time. When you click on save button it saves your ecg in csv.
+It gets data from *https://github.com/sato96/ECG_esp8266* opening a websocket e plotting ecg in real time. When you click on save button it saves your ecg in csv.
 You can view ecg signal using the file menu.
 
 *TODO features*
