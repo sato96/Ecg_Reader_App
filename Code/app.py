@@ -127,7 +127,6 @@ class MyMainWindow(QMainWindow):
         else:
             self.popUpMsg('Non è stato selezionato alcun file',title='File vuoto', type='WARNING')
 
-
     def realod(self):
         conf = Config.getConfiguration(self.configFile)
         # TODO metti try per intercettare gli errori di caricamento dei file
