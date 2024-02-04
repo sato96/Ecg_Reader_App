@@ -45,12 +45,12 @@ class MyMainWindow(QMainWindow):
         self.line, = self.ax.plot([], [], lw=2)
         self.start = False
         self.configFile = 'AppConfiguration/config.json'
-        conf = Config.getConfiguration(self.configFile)
+        #conf = Config.getConfiguration(self.configFile)
         #TODO metti try per intercettare gli errori di caricamento dei file
-        self.host = conf['ipDevice'].split(':')[0] # The server's hostname or IP address
-        self.port = int(conf['ipDevice'].split(':')[1])  # The port used by the server
-        self.plotFreq = conf['plotFrequence']
-        self.saveDir = conf['savePath']
+        self.host = Config.getConfiguration(self.configFile, 'ipDevice').split(':')[0] # The server's hostname or IP address
+        self.port = int(Config.getConfiguration(self.configFile, 'ipDevice').split(':')[1])  # The port used by the server
+        self.plotFreq = Config.getConfiguration(self.configFile, 'plotFrequence')
+        self.saveDir = Config.getConfiguration(self.configFile, 'savePath')
         self.connector = SocketConnection(self.host, self.port, self.saveDir)
 
         # Crea un'unica istanza di animazione
@@ -93,7 +93,6 @@ class MyMainWindow(QMainWindow):
         print('Stop')
         self.connector.stopRecording()
         self.start = False
-        print(os.getcwd())
         self.ani.event_source.stop()
 
     def onSave(self):
@@ -106,18 +105,18 @@ class MyMainWindow(QMainWindow):
         self.popUpMsg(txt, 'Salvataggio', 'INFORMATION')
 
     def onInfo(self):
-        self.popUpMsg('Versione 1.0\nCredits ing. Tozzi Samuele\nContacts samtozzi.st@gmail.com', 'Crediti', type='INFORMATION')
+        infoText = 'Versione 1.0\nCredits ing. Tozzi Samuele\nContacts samtozzi.st@gmail.com'
+        infoText = infoText + '\nParametri generali di sisterma:' + '\n' + str(Config.getConfiguration(self.configFile, None))
+        self.popUpMsg(infoText, 'Crediti', type='INFORMATION')
 
     def onConfigDir(self):
         dir = str(QFileDialog.getExistingDirectory(self, "Selezione la cartella"))
         if dir != '':
             dir = dir + '/'
         Config.saveConfiguration('AppConfiguration/config.json', 'savePath', dir)
-        print(dir)
         self.realod()
     def onOpenFile(self):
         file = QFileDialog.getOpenFileName(caption='Scegli un ecg', directory='/', filter="Fogli elettronici (*.csv)")
-        print(file)
         if file[0] != '':
             ecg = Signal(filePath=file[0])
             ecg.getSignal(unsafe=True)
@@ -128,12 +127,10 @@ class MyMainWindow(QMainWindow):
             self.popUpMsg('Non è stato selezionato alcun file',title='File vuoto', type='WARNING')
 
     def realod(self):
-        conf = Config.getConfiguration(self.configFile)
-        # TODO metti try per intercettare gli errori di caricamento dei file
-        self.host = conf['ipDevice'].split(':')[0]  # The server's hostname or IP address
-        self.port = int(conf['ipDevice'].split(':')[1])  # The port used by the server
-        self.plotFreq = conf['plotFrequence']
-        self.saveDir = conf['savePath']
+        self.host = Config.getConfiguration(self.configFile, 'ipDevice').split(':')[0] # The server's hostname or IP address
+        self.port = int(Config.getConfiguration(self.configFile, 'ipDevice').split(':')[1])  # The port used by the server
+        self.plotFreq = Config.getConfiguration(self.configFile, 'plotFrequence')
+        self.saveDir = Config.getConfiguration(self.configFile, 'savePath')
         self.connector = SocketConnection(self.host, self.port, self.saveDir)
         self.ani.event_source.interval = self.plotFreq
 

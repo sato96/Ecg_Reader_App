@@ -1,1 +1,19 @@
-{"ipDevice": "192.168.4.1:80", "plotFrequence": 500, "savePath": "/home/sato96/PycharmProjects/EcgClient/Code/Output/"}
+{
+    "generalConfigurations": [
+        {
+            "code": "savePath",
+            "value": "/home/sato96/PycharmProjects/EcgClient/Code/Output/",
+            "type": "str"
+        },
+        {
+            "code": "plotFrequence",
+            "value": 500,
+            "type": "int"
+        },
+        {
+            "code": "ipDevice",
+            "value": "192.168.4.1:80",
+            "type": "ip"
+        }
+    ]
+}
