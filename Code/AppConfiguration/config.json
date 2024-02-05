@@ -2,18 +2,27 @@
     "generalConfigurations": [
         {
             "code": "savePath",
-            "value": "/home/sato96/PycharmProjects/EcgClient/Code/Output/",
+            "name": "Percorso di salvataggio",
+            "value": "/home/sato96/PycharmProjects/EcgClient/Code/Output",
             "type": "str"
         },
         {
             "code": "plotFrequence",
+            "name": "Frequenza di aggiornamento grafico",
             "value": 500,
             "type": "int"
         },
         {
             "code": "ipDevice",
+            "name": "Indirizzo dispostivo",
             "value": "192.168.4.1:80",
             "type": "ip"
+        },
+        {
+            "code": "version",
+            "name": "Versione",
+            "value": "1.1",
+            "type": "str"
         }
     ]
 }

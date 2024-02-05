@@ -105,16 +105,18 @@ class MyMainWindow(QMainWindow):
         self.popUpMsg(txt, 'Salvataggio', 'INFORMATION')
 
     def onInfo(self):
-        infoText = 'Versione 1.0\nCredits ing. Tozzi Samuele\nContacts samtozzi.st@gmail.com'
-        infoText = infoText + '\nParametri generali di sisterma:' + '\n' + str(Config.getConfiguration(self.configFile, None))
+        infoText = 'Credits ing. Tozzi Samuele\nContacts samtozzi.st@gmail.com'
+        strParams = ''
+        for i in Config.getConfiguration(self.configFile, None):
+            strParams += '- ' +str(i['name']) + ': ' + str(i['value']) + '\n'
+        infoText = infoText + '\n\nParametri generali di sistema:' + '\n' + strParams
         self.popUpMsg(infoText, 'Crediti', type='INFORMATION')
 
     def onConfigDir(self):
         dir = str(QFileDialog.getExistingDirectory(self, "Selezione la cartella"))
         if dir != '':
-            dir = dir + '/'
-        Config.saveConfiguration('AppConfiguration/config.json', 'savePath', dir)
-        self.realod()
+            Config.saveConfiguration('AppConfiguration/config.json', 'savePath', dir)
+            self.realod()
     def onOpenFile(self):
         file = QFileDialog.getOpenFileName(caption='Scegli un ecg', directory='/', filter="Fogli elettronici (*.csv)")
         if file[0] != '':
