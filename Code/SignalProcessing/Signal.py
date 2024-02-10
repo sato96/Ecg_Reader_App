@@ -76,12 +76,4 @@ class Signal(object):
             return True
 
 
-if __name__ == "__main__":
-    s = Signal(flSavePath=False)
-    prova = [1, 2, 3, 4]
-    for i in range(4):
-        s.buildSignal(prova)
-    print('segnale')
-    print(s.getSignal(unsafe=True))
-
 
