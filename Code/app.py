@@ -7,7 +7,9 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from Code.DeviceConnection.ConnectionHandler import SocketConnection
 from Code.AppConfiguration.ConfigurationHandler import ConfigurationHandler as Config
-from PyQt5.QtWidgets import QMessageBox
+from Code.GUI.PopUpMsg import PopUp
+from Code.GUI.FrequDisplayDialog import FrequDisplayDialog
+from Code.GUI.IpDeviceDialog import IpDeviceDialog
 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -40,6 +42,8 @@ class MyMainWindow(QMainWindow):
         self.actionInfo.triggered.connect(self.onInfo)
         self.actionCarica_ECG.triggered.connect(self.onOpenFile)
         self.actionCartella_di_salvataggio.triggered.connect(self.onConfigDir)
+        self.actionFrequenza_di_aggiornamento_grafico.triggered.connect(self.onFreqUpdate)
+        self.actionImposta_indirizzo_dispositivo.triggered.connect(self.onIpUpdate)
         # Inizializza le variabili per l'animazione
         self.xdata, self.ydata = [], []
         self.line, = self.ax.plot([], [], lw=2)
@@ -102,7 +106,7 @@ class MyMainWindow(QMainWindow):
         print(sig.getSignal())
         print(sig.file)
         txt = 'Ecg salvato in ' + sig.file
-        self.popUpMsg(txt, 'Salvataggio', 'INFORMATION')
+        PopUp.popUpMsg(txt, 'Salvataggio', 'INFORMATION')
 
     def onInfo(self):
         infoText = 'Credits ing. Tozzi Samuele\nContacts samtozzi.st@gmail.com'
@@ -110,7 +114,7 @@ class MyMainWindow(QMainWindow):
         for i in Config.getConfiguration(self.configFile, None):
             strParams += '- ' +str(i['name']) + ': ' + str(i['value']) + '\n'
         infoText = infoText + '\n\nParametri generali di sistema:' + '\n' + strParams
-        self.popUpMsg(infoText, 'Crediti', type='INFORMATION')
+        PopUp.popUpMsg(infoText, 'Crediti', type='INFORMATION')
 
     def onConfigDir(self):
         dir = str(QFileDialog.getExistingDirectory(self, "Selezione la cartella"))
@@ -126,7 +130,16 @@ class MyMainWindow(QMainWindow):
             plt.plot(ecgFiltered)
             plt.show()
         else:
-            self.popUpMsg('Non è stato selezionato alcun file',title='File vuoto', type='WARNING')
+            PopUp.popUpMsg('Non è stato selezionato alcun file',title='File vuoto', type='WARNING')
+    def onFreqUpdate(self):
+        dialog = FrequDisplayDialog(self.configFile)
+        dialog.exec_()
+        self.realod()
+
+    def onIpUpdate(self):
+        dialog = IpDeviceDialog(self.configFile)
+        dialog.exec_()
+        self.realod()
 
     def realod(self):
         self.host = Config.getConfiguration(self.configFile, 'ipDevice').split(':')[0] # The server's hostname or IP address
@@ -138,19 +151,7 @@ class MyMainWindow(QMainWindow):
 
 
 
-    def popUpMsg(self, text, title = '', type = None):
-        msg = QMessageBox()
-        msg.setWindowTitle(title)
-        msg.setText(text)
-        if type == 'CRITICAL':
-            msg.setIcon(QMessageBox.Critical)
-        elif type == 'WARNING':
-            msg.setIcon(QMessageBox.Warning)
-        elif type == 'INFORMATION':
-            msg.setIcon(QMessageBox.Information)
-        elif type == 'QUESTION':
-            msg.setIcon(QMessageBox.Question)
-        x = msg.exec_()
+
 
 
 if __name__ == "__main__":
